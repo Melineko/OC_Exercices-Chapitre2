@@ -34,16 +34,19 @@ if let choice = readLine() {
                 print("Super !")
               case "3":
                 //traite des vaches
-                barn["milk"]! += 30
-                print("Super !")
+                if let quantity = readQuantity(of : "bidons de lait"){
+                milkCows(nombreBidons: quantity)
+                    print("Super !")}
               case "4":
                 //moisson
-                barn["wheat"]! += 100
-                print("Super !")
+                if let quantity = readQuantity(of : "bottes de blé"){
+                harvest(nombreBottes: quantity)
+                    print("Super !")}
               case "5":
                 //tonte des moutons
-                barn["wool"]! += 30
-                print("Super !")
+                if let quantity = readQuantity(of : "pelottes de laine"){
+                mowSheep(nombrePelottes: quantity)
+                    print("Super !")}
                 //default
               default:
               print("Je ne pige pas.")
@@ -68,9 +71,9 @@ if let choice = readLine() {
 }
 }//balise fin boucle while
 
-//FONCTIONS
+//======FONCTIONS======
 
-//fonction vente des produits
+//== fonction vente des produits ==
 func sell(){
     money += Double(barn["milk"]!) * 0.50 // Le lait
     money += Double(barn["wheat"]!) * 0.30 // Le blé
@@ -80,4 +83,32 @@ func sell(){
     barn = ["milk":0,"wheat":0,"wool":0]
 }
 
+//== fonction traite du lait des vaches ==
+func milkCows(nombreBidons milkBottle : Int){
+    barn["milk"]! += milkBottle
+}
 
+//== fonction moisson du blé ==
+func harvest(nombreBottes wheatPieces : Int){
+    barn["wheat"]! += wheatPieces
+}
+
+//== fonction tonte des moutons ==
+func mowSheep(nombrePelottes woolPieces : Int){
+    barn["wool"]! += woolPieces
+}
+
+//== fonction pour lire la quantité ==
+func readQuantity(of type: String)-> Int?{
+    
+    print("Combien de \(type) avez-vous récupéré ?")
+    
+    if let line = readLine(){
+        if let quantity = Int(line){
+            return quantity
+        }
+    }
+    print("Je n'ai pas compris.")
+    
+    return nil
+}
